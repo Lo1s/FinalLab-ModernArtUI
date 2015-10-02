@@ -1,7 +1,9 @@
 package com.example.android.lab4_modernartui;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -85,7 +87,7 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_more_information) {
-
+            createDialog();
             return true;
         }
 
@@ -93,19 +95,23 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void createDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
-        dialogBuilder.setTitle("Title");
+        dialogBuilder.setTitle("More information");
 
         dialogBuilder
-                .setMessage("Title")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setMessage("Inspired by the works of artists such as Piet Mondrian " +
+                        "and Ben Nicholson." + System.lineSeparator() +
+                        "Click below to learn more!" + System.lineSeparator())
+                .setPositiveButton("Visit MOMA", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        Uri webpage = Uri.parse("http://www.moma.org");
+                        Intent visitMOMAintent = new Intent(Intent.ACTION_VIEW, webpage);
+                        startActivity(visitMOMAintent);
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Not Now", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
